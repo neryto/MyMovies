@@ -3,6 +3,9 @@ package com.nery.lbustos.mymovies
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import okhttp3.OkHttpClient
@@ -17,21 +20,36 @@ class MainActivity : AppCompatActivity() {
 
 
     var movies : ArrayList<MovieItem> = arrayListOf()
-    private val adapter : MoviesAdapter = MoviesAdapter(movies)
-    var recyclerView : RecyclerView? = null
+    private var adapter : MoviesAdapter?  = null
+    private var recyclerView : RecyclerView? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
         getMovies()
+
     }
 
    private fun initView(){
         recyclerView = findViewById(R.id.recyclerViewMovies)
-        recyclerView?.layoutManager = LinearLayoutManager(this)
-        recyclerView?.adapter = adapter
+        recyclerView?.layoutManager = GridLayoutManager(this,3)
+        adapter = MoviesAdapter(movies) {
+            BottomSheetDetailFragment(it)
+                .apply {
+                show(supportFragmentManager,BottomSheetDetailFragment.TAG)
+            }
+        }
+       recyclerView?.adapter = adapter
     }
+
+
+
+
+
+
 
     fun getMovies(){
         getRetrofit().create(MoviesWebservices :: class.java)
@@ -45,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     response: Response<MoviesResponse>
                 ) {
                    movies.addAll( response.body()!!.results)
-                   adapter.notifyDataSetChanged()
+                   adapter?.notifyDataSetChanged()
                 }
 
             })
@@ -63,3 +81,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+

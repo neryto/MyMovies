@@ -5,7 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class MoviesAdapter (private val movies : List<MovieItem>) : RecyclerView.Adapter<ViewHolderMovie>() {
+class MoviesAdapter (private val movies : List<MovieItem>,private val listener : (MovieItem)->Unit)
+    : RecyclerView.Adapter<ViewHolderMovie>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderMovie {
         val view : View = LayoutInflater
@@ -19,7 +20,7 @@ class MoviesAdapter (private val movies : List<MovieItem>) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: ViewHolderMovie, position: Int) {
-       holder.bind(movies.get(position))
+       holder.bind(movies[position],listener)
     }
 
 }
