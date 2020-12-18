@@ -1,13 +1,11 @@
 package com.nery.lbustos.mymovies
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.nery.lbustos.mymovies.databinding.ActivityMainBinding
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -21,34 +19,32 @@ class MainActivity : AppCompatActivity() {
 
     var movies : ArrayList<MovieItem> = arrayListOf()
     private var adapter : MoviesAdapter?  = null
-    private var recyclerView : RecyclerView? = null
+    private lateinit var binding: ActivityMainBinding
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initView()
         getMovies()
 
     }
 
    private fun initView(){
-        recyclerView = findViewById(R.id.recyclerViewMovies)
-        recyclerView?.layoutManager = GridLayoutManager(this,3)
+
+       binding.recyclerViewMovies
+       binding.recyclerViewMovies.layoutManager = StaggeredGridLayoutManager(3,
+           StaggeredGridLayoutManager.VERTICAL)
         adapter = MoviesAdapter(movies) {
             BottomSheetDetailFragment(it)
                 .apply {
                 show(supportFragmentManager,BottomSheetDetailFragment.TAG)
             }
         }
-       recyclerView?.adapter = adapter
+       binding.recyclerViewMovies?.adapter = adapter
     }
-
-
-
-
-
 
 
     fun getMovies(){
