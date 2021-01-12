@@ -12,7 +12,7 @@
 
         >
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".movies.views.MainActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

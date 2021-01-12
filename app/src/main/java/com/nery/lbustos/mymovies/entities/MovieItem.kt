@@ -1,7 +1,6 @@
-package com.nery.lbustos.mymovies
+package com.nery.lbustos.mymovies.entities
 
 import com.google.gson.annotations.SerializedName
-import java.lang.StringBuilder
 
 data class MovieItem(val id:Int,
                      @SerializedName("original_title")

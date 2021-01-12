@@ -1,11 +1,13 @@
-package com.nery.lbustos.mymovies
+package com.nery.lbustos.mymovies.movies.views
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nery.lbustos.mymovies.R
+import com.nery.lbustos.mymovies.entities.MovieItem
 
-class MoviesAdapter (private val movies : List<MovieItem>,private val listener : (MovieItem)->Unit)
+class MovieAdapter (private val movies : List<MovieItem>, private val listener : (MovieItem)->Unit)
     : RecyclerView.Adapter<ViewHolderMovie>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderMovie {

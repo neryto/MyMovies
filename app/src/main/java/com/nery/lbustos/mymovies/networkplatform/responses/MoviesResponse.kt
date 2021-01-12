@@ -1,6 +1,7 @@
-package com.nery.lbustos.mymovies
+package com.nery.lbustos.mymovies.networkplatform.responses
 
 import com.google.gson.annotations.SerializedName
+import com.nery.lbustos.mymovies.entities.MovieItem
 
 class MoviesResponse {
     val page : Int = 0
